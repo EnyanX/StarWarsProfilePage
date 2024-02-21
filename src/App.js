@@ -22,7 +22,7 @@ function App() {
           return response.json();
         })
         .then(data => {
-          tmpPeople = [...people, ...data.results];
+          tmpPeople = [...tmpPeople, ...data.results];
           console.log("updated: ", people);
           setPeople(tmpPeople);
           

@@ -8,6 +8,12 @@ export default function SearchBar({ onSearchSubmit }) {
     setInputValue(event.target.value);
   }
 
+  const handleKeyPress = (event) => {
+    if(event.key === 'Enter') {
+      handleSearch();
+    }
+  }
+
   const handleSearch = () => {
     console.log(inputValue);
     // search through contentList for matching content
@@ -16,8 +22,8 @@ export default function SearchBar({ onSearchSubmit }) {
 
   return (
     <div className="search-bar">
-      <input type="text" placeholder="Tell me who you're looking for..." onChange={handleInputChange}/>
-      <button onClick={handleSearch}>Search</button>
+      <input type="text" placeholder="Tell me who you're looking for..." onChange={handleInputChange} onKeyPress={handleKeyPress}/>
+      <button onClick={handleSearch}>Search 🚀</button>
     </div>
   );
 }

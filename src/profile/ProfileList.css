@@ -1,21 +1,29 @@
 .profile-list-content {
-    position: relative;
-    background-color: rgba(211, 211, 211, 0.487);
-    overflow-y: scroll;
-    margin-left: 70px;
-    margin-right: 70px;
+  position: relative;
+  background-color: rgba(211, 211, 211, 0.487);
+  overflow-y: scroll;
+  margin-left: 70px;
+  margin-right: 70px;
 }
 
 .profile-list-header {
-    display: block;
-    color: white;
-    font-family: "Rajdhani", sans-serif;
-    font-weight: 500;
-    margin-bottom: 25px;
-    margin-top:70px;
+  display: block;
+  color: white;
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 500;
+  margin-bottom: 25px;
+  margin-top: 50px;
 }
 
 .profile-list-card {
-    position: relative;
-    margin-top: 50px;
+  position: relative;
+  margin-top: 50px;
+}
+
+.profile-list-msg {
+  color: white;
+  margin-top: -20px;
+  font-size: 15px;
+  font-family: "Kode Mono", monospace;
+  font-optical-sizing: auto;
 }

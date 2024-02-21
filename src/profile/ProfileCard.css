@@ -17,3 +17,7 @@
 .col {
     display: table-cell;
 }
+
+.profile-card p{
+    margin-top:-5px;
+}

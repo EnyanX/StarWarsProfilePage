@@ -1,16 +1,27 @@
 import React from "react";
-import './ProfileList.css';
-import {Container, Row} from 'react-bootstrap'; 
+import "./ProfileList.css";
+import { Container, Row } from "react-bootstrap";
 import ProfileCard from "./ProfileCard";
 
-export default function ProfileList({list}) {
-    console.log(list);
-    return <Container className="profile-list">
+export default function ProfileList({ header, list }) {
+  return (
+    <div>
+      <h1 className="profile-list-header">{header}</h1>
+      <Container className="profile-list-content">
         <Row>
-            {list.map((profile, index) => (
-                <ProfileCard key={index} name="dummy" className="profile-list-card"></ProfileCard>
-            ))}
+          {list.map((profile, index) => (
+            <ProfileCard
+              key={index}
+              name={profile.name}
+              gender={profile.gender}
+              height={profile.height}
+              weight={profile.mass}
+              hair={profile.hair_color}
+              className="profile-list-card"
+            ></ProfileCard>
+          ))}
         </Row>
-
-    </Container>
-};
+      </Container>
+    </div>
+  );
+}

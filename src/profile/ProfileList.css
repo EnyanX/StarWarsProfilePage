@@ -1,12 +1,21 @@
-.profile-list {
+.profile-list-content {
     position: relative;
-    background-color: red;
+    background-color: lightgrey;
     overflow-y: scroll;
     margin-left: 70px;
     margin-right: 70px;
 }
 
+.profile-list-header {
+    display: block;
+    color: white;
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 500;
+    margin-bottom: 0px;
+    margin-top:100px;
+}
+
 .profile-list-card {
-    position: absolute;
-    
+    position: relative;
+    margin-top: 50px;
 }

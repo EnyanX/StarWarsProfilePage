@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import logo from "./assets/logo.png";
+import logo from "./assets/star-wars-logo.svg";
 import "./App.css";
 import ProfileCard from "./profile/ProfileCard";
 import ProfileList from "./profile/ProfileList";
-import Spinner from "./spinner/Spinner";
+import Spinner from "./animation/Spinner";
 import SearchBar from "./search/SearchBar";
+import Typing from "./animation/Typing";
 
 function App() {
   let tmpPeople = [];
@@ -13,7 +14,6 @@ function App() {
 
   useEffect(() => {
     const fetchData = (url) => {
-      console.log(url);
       fetch(url)
         .then(response => {
           if (!response.ok) {
@@ -23,7 +23,6 @@ function App() {
         })
         .then(data => {
           tmpPeople = [...tmpPeople, ...data.results];
-          console.log("updated: ", people);
           setPeople(tmpPeople);
           
           if (data.next) {
@@ -48,9 +47,11 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
       </header>
 
-      {isLoading ? <Spinner /> : <SearchBar className="search" />}
-      {!isLoading && <ProfileCard name={"Hunter"}></ProfileCard>}
-      {!isLoading && <ProfileList list={people}/>}  
+      {isLoading ? <Spinner /> : <SearchBar list={people} className="search" />}
+      {/* {!isLoading && <ProfileCard name={"Hunter"}></ProfileCard>} */}
+      
+      {!isLoading && <ProfileList header={"All Archived Files"} list={people}/>}  
+      <Typing inputs={["may the force be with you"]}></Typing>
     </div>
   );
 }

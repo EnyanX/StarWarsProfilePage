@@ -1,0 +1,27 @@
+.search-bar {
+    margin: auto;
+    margin-top:100px;
+}
+
+.search-bar input {
+    height: 30px;
+    background-color: white;
+    border-radius: 5px;
+    width: 300px;
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 600;
+    font-size:large;
+    border:0cm;
+    background-color: black;
+    color: white;
+}
+
+.search-bar button {
+    height: 30px;
+    font-family: "Rajdhani", sans-serif;
+    font-weight: 600;
+    font-size: x-large;
+    border:0cm;
+    background-color: black;
+    color: white;
+}

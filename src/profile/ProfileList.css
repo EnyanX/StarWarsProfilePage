@@ -1,0 +1,12 @@
+.profile-list {
+    position: relative;
+    background-color: red;
+    overflow-y: scroll;
+    margin-left: 70px;
+    margin-right: 70px;
+}
+
+.profile-list-card {
+    position: absolute;
+    
+}

@@ -1,6 +1,6 @@
 .profile-list-content {
     position: relative;
-    background-color: lightgrey;
+    background-color: rgba(211, 211, 211, 0.487);
     overflow-y: scroll;
     margin-left: 70px;
     margin-right: 70px;

@@ -1,34 +1,34 @@
 import React, { useState, useEffect } from "react";
 import "./ProfileCard.css";
 import { Col } from "react-bootstrap";
+import { fetchProfileData } from "./fetchProfileData";
+import { fetchProfileDataBatch } from "./fetchProfileDataBatch";
 
 export default function ProfileCard(props) {
-  // fetch species information
-  const [species, setSpecies] = useState("undefined");
+  const [species, setSpecies] = useState("n/a");
+  const [films, setFilms] = useState();
+  const [vehicles, setVehicles] = useState();
 
+  // fetch species, films, vehicle information
   useEffect(() => {
-    const fetchSpeciesData = (url) => {
-      fetch(url)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log("species ", data);
-          setSpecies(data.name);
-        })
-        .catch((error) => {
-          console.error("Error fetching data: ", error);
-        });
+    const fetchProfileDataAsync = async () => {
+      try {
+        if (props.species) {
+          fetchProfileData(props.species, setSpecies, "name");
+        }
+        if (props.films) {
+          fetchProfileDataBatch(props.films, setFilms, "title");
+        }
+        if (props.vehicles) {
+          fetchProfileDataBatch(props.vehicles, setVehicles, "name");
+        }
+      } catch (err) {
+        console.error("Failed to fetch profile data:", err);
+      }
     };
 
-    // fetch all people info from API
-    if (props.species) {
-      fetchSpeciesData(props.species);
-    }
-  }, []);
+    fetchProfileDataAsync();
+  }, [props.species, props.films, props.vehicles]);
 
   return (
     <Col>
@@ -50,12 +50,9 @@ export default function ProfileCard(props) {
         {props.birth && props.birth.trim() !== " " && (
           <p>Date of Birth: {props.birth}</p>
         )}
-
-        {/* TODO: fetch species, films, and spaceships information */}
-
         {props.species && <p>Species: {species}</p>}
-        {props.films && <p>Films Appeared: {props.films}</p>}
-        {props.vehicles && <p>Vehicles: {props.vehicles}</p>}
+        {/* {props.films && <p>Films Appeared: {films}</p>}
+        {props.vehicles && <p>Vehicles: {vehicles}</p>} */}
       </Col>
     </Col>
   );

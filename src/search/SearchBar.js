@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./SearchBar.css";
 
-export default function SearchBar({ contentList, field }) {
+export default function SearchBar({ onSearchSubmit }) {
   const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (event) => {
@@ -11,7 +11,7 @@ export default function SearchBar({ contentList, field }) {
   const handleSearch = () => {
     console.log(inputValue);
     // search through contentList for matching content
-    
+    onSearchSubmit(inputValue);
   };
 
   return (

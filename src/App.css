@@ -10,7 +10,29 @@
   top: 55px;
 }
 
+.side-logo {
+  height: 30vmin;
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+}
+
 .search {
   position: fixed;
   margin-top: 100px;
+}
+
+.welcome-message {
+  position: fixed;
+  bottom: 100px;
+  width:100%;
+  display: flex;
+  justify-content: center;
+}
+
+.invalid-search-msg {
+  color: #FDB900;
+  margin-top: 50px;
+  font-size: x-large;
+  font-family: "Rajdhani", sans-serif;
 }

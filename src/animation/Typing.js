@@ -2,8 +2,7 @@ import React from "react";
 import { TypeAnimation } from "react-type-animation";
 
 export default function Typing({ inputs }) {
-  const repeat = 800;
-  const sequence = inputs.map((item) => item, repeat);
+  const sequence = inputs.map((item) => item, 800);
 
   return (
     <TypeAnimation
@@ -11,12 +10,11 @@ export default function Typing({ inputs }) {
       wrapper="span"
       speed={15}
       style={{
-        fontSize: "2em",
+        fontSize: "2.8em",
         display: "inline-block",
         fontFamily: "monospace",
-        color: "white",
+        color: "lightgrey",
       }}
-      repeat={Infinity}
     />
   );
 }

@@ -1,0 +1,7 @@
+.details {
+  background-color: pink;
+  position: fixed;
+  height: 100px;
+  width: 300px;
+  top: 50px;
+}

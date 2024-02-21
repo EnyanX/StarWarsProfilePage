@@ -3,11 +3,17 @@ import "./ProfileCard.css";
 import { Col } from "react-bootstrap";
 import { fetchProfileData } from "./fetchProfileData";
 import { fetchProfileDataBatch } from "./fetchProfileDataBatch";
+import DetailCard from "./DetailCard";
 
 export default function ProfileCard(props) {
   const [species, setSpecies] = useState("n/a");
   const [films, setFilms] = useState();
   const [vehicles, setVehicles] = useState();
+
+  let info = {};
+  const [showDetails, setShowDetails] = useState(false);
+  // const [details, setDetails] = useState([]);
+  const [detailsFetched, setDetailsFetched] = useState(false); // flag to avoid duplicate fetching
 
   // fetch species, films, vehicle information
   useEffect(() => {
@@ -16,23 +22,60 @@ export default function ProfileCard(props) {
         if (props.species) {
           fetchProfileData(props.species, setSpecies, "name");
         }
-        if (props.films) {
-          fetchProfileDataBatch(props.films, setFilms, "title");
-        }
-        if (props.vehicles) {
-          fetchProfileDataBatch(props.vehicles, setVehicles, "name");
-        }
       } catch (err) {
         console.error("Failed to fetch profile data:", err);
       }
     };
 
     fetchProfileDataAsync();
-  }, [props.species, props.films, props.vehicles]);
+  }, [props.species]);
+
+  const handleClick = async () => {
+    if (showDetails) {
+      // setShowDetails(false); 
+    } else {
+      if (detailsFetched) {
+        // setShowDetails(true);
+      } else {
+        
+        const fetchPromises = [];
+
+        if (props.films) {
+          const filmsPromise = fetchProfileDataBatch(
+            props.films,
+            setFilms,
+            "title"
+          ).then((filmsData) => {
+            info.films = filmsData;
+          });
+          fetchPromises.push(filmsPromise);
+        }
+
+        if (props.vehicles) {
+          const vehiclesPromise = fetchProfileDataBatch(
+            props.vehicles,
+            setVehicles,
+            "name"
+          ).then((vehiclesData) => {
+            info.vehicles = vehiclesData;
+          });
+          fetchPromises.push(vehiclesPromise);
+        }
+
+        // Wait for all fetch operations to complete
+        await Promise.all(fetchPromises).then(() => {
+          console.log("info: ", info);
+          // setShowDetails(true);
+          // setDetails(info);
+          // setDetailsFetched(true);
+        });
+      }
+    }
+  };
 
   return (
     <Col>
-      <Col md={12} className="profile-card">
+      <Col md={12} className="profile-card" onClick={handleClick}>
         <h3 className="home-greeting">{props.name}</h3>
         {props.gender && props.gender.trim() !== " " && (
           <p>Gender: {props.gender}</p>
@@ -51,9 +94,8 @@ export default function ProfileCard(props) {
           <p>Date of Birth: {props.birth}</p>
         )}
         {props.species && <p>Species: {species}</p>}
-        {/* {props.films && <p>Films Appeared: {films}</p>}
-        {props.vehicles && <p>Vehicles: {vehicles}</p>} */}
       </Col>
+      {/* {showDetails && <DetailCard info={details}></DetailCard>} */}
     </Col>
   );
 }

@@ -17,6 +17,7 @@ export default function ProfileList({ header, list }) {
               height={profile.height}
               weight={profile.mass}
               hair={profile.hair_color}
+              species={profile.species}
               className="profile-list-card"
             ></ProfileCard>
           ))}

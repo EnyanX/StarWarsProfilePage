@@ -9,11 +9,9 @@ export default function ProfileCard(props) {
   const [species, setSpecies] = useState("n/a");
   const [films, setFilms] = useState();
   const [vehicles, setVehicles] = useState();
+  const [homeworld, setHomeworld] = useState();
 
   let info = {};
-  const [showDetails, setShowDetails] = useState(false);
-  // const [details, setDetails] = useState([]);
-  const [detailsFetched, setDetailsFetched] = useState(false); // flag to avoid duplicate fetching
 
   // fetch species, films, vehicle information
   useEffect(() => {
@@ -31,46 +29,41 @@ export default function ProfileCard(props) {
   }, [props.species]);
 
   const handleClick = async () => {
-    if (showDetails) {
-      // setShowDetails(false); 
-    } else {
-      if (detailsFetched) {
-        // setShowDetails(true);
-      } else {
-        
-        const fetchPromises = [];
+    const fetchPromises = [];
 
-        if (props.films) {
-          const filmsPromise = fetchProfileDataBatch(
-            props.films,
-            setFilms,
-            "title"
-          ).then((filmsData) => {
-            info.films = filmsData;
-          });
-          fetchPromises.push(filmsPromise);
-        }
-
-        if (props.vehicles) {
-          const vehiclesPromise = fetchProfileDataBatch(
-            props.vehicles,
-            setVehicles,
-            "name"
-          ).then((vehiclesData) => {
-            info.vehicles = vehiclesData;
-          });
-          fetchPromises.push(vehiclesPromise);
-        }
-
-        // Wait for all fetch operations to complete
-        await Promise.all(fetchPromises).then(() => {
-          console.log("info: ", info);
-          // setShowDetails(true);
-          // setDetails(info);
-          // setDetailsFetched(true);
-        });
-      }
+    if(props.name) {
+      info.name = [];
+      info.name.push(props.name);
     }
+
+    if (props.films) {
+      info.films = [];
+      const filmsPromise = fetchProfileDataBatch(
+        props.films,
+        setFilms,
+        "title"
+      ).then((filmsData) => {
+        info.films.push(...filmsData);
+      });
+      fetchPromises.push(filmsPromise);
+    }
+    if (props.vehicles) {
+      info.starships = [];
+      const vehiclesPromise = fetchProfileDataBatch(
+        props.vehicles,
+        setVehicles,
+        "name"
+      ).then((vehiclesData) => {
+        info.starships.push(...vehiclesData);
+      });
+      fetchPromises.push(vehiclesPromise);
+    }
+
+    // Wait for all fetch operations to complete
+    await Promise.all(fetchPromises).then(() => {
+      // console.log("info: ", info);
+      props.handleClick(info);
+    });
   };
 
   return (
@@ -83,7 +76,6 @@ export default function ProfileCard(props) {
         {props.height && props.height.trim() !== " " && (
           <p>Height: {props.height}</p>
         )}
-
         {props.weight && props.weight.trim() !== " " && (
           <p>Weight: {props.weight}</p>
         )}
@@ -95,7 +87,6 @@ export default function ProfileCard(props) {
         )}
         {props.species && <p>Species: {species}</p>}
       </Col>
-      {/* {showDetails && <DetailCard info={details}></DetailCard>} */}
     </Col>
   );
 }

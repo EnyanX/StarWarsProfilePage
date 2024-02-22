@@ -7,8 +7,8 @@ export const fetchProfileData = (url, setter, fieldName) => {
       return response.json();
     })
     .then((data) => {
-      // console.log("fetched data:", data);
       setter(data[fieldName]);
+      // return(data[fieldName]);
     })
     .catch((error) => {
       console.error("Error fetching data: ", error);

@@ -6,12 +6,17 @@ import ProfileList from "./profile/ProfileList";
 import Spinner from "./animation/Spinner";
 import SearchBar from "./search/SearchBar";
 import Typing from "./animation/Typing";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import DetailCard from "./profile/DetailCard";
 
 function App() {
   const [people, setPeople] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchResult, setSearchResult] = useState([]);
   const [searchPerformed, setSearchPerformed] = useState(false);
+  const [displayDetail, setDisplayDetail] = useState(false);
+  const [details, setDetails] = useState();
 
   useEffect(() => {
     let tmpPeople = [];
@@ -63,6 +68,12 @@ function App() {
     }
   };
 
+  const handleDetailCard = (info) => {
+    console.log("app info: ", info);
+    setDetails(info);
+    setDisplayDetail(!displayDetail);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -85,13 +96,43 @@ function App() {
 
       {searchPerformed &&
         (searchResult.length > 0 ? (
-          <ProfileList header={"Matching Records"} list={searchResult} />
+          <ProfileList
+            header={"Matching Records"}
+            list={searchResult}
+            handleClick={handleDetailCard}
+          />
         ) : (
           <p className="invalid-search-msg">⚠️ No matching records found ⚠️</p>
         ))}
 
       {!isLoading && (
-        <ProfileList header={"All Archived Files"} list={people} />
+        <ProfileList
+          header={"All Archived Files"}
+          list={people}
+          handleClick={handleDetailCard}
+        />
+      )}
+
+      {/* {displayDetail && <DetailCard className="detail-card" info={[]}></DetailCard>} */}
+      {displayDetail && (
+        <div className="detail-container">
+          <div className="detail-card">
+            {Object.entries(details).map(([key, values], index) => (
+              
+              <div key={index}>
+                <h1 className="detail-key">{key.toUpperCase()}</h1>
+                {values.map((value, index) => (
+                  <h3 key={index} className="detail-value">
+                    {value}
+                  </h3>
+                ))}
+              </div>
+            ))}
+            <div className="detail-card-close-icon" onClick={handleDetailCard}>
+              <FontAwesomeIcon icon={faXmark} />
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

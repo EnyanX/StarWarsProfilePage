@@ -16,7 +16,6 @@ export const fetchProfileDataBatch = (urls, setter, fieldName) => {
       })
   ))
   .then(allResults => {
-    console.log("Batch data:", allResults);
     setter(allResults);
     return allResults;
   });

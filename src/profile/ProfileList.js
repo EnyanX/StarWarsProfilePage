@@ -3,7 +3,7 @@ import "./ProfileList.css";
 import { Container, Row } from "react-bootstrap";
 import ProfileCard from "./ProfileCard";
 
-export default function ProfileList({ header, list }) {
+export default function ProfileList({ header, list, handleClick }) {
   return (
     <div>
       <h1 className="profile-list-header">{header}</h1>
@@ -22,6 +22,7 @@ export default function ProfileList({ header, list }) {
               films={profile.films}
               vehicles={profile.vehicles}
               className="profile-list-card"
+              handleClick={handleClick}
             ></ProfileCard>
           ))}
         </Row>

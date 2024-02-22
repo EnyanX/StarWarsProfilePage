@@ -7,7 +7,7 @@ export default function ProfileList({ header, list, handleClick }) {
   return (
     <div>
       <h1 className="profile-list-header">{header}</h1>
-      <p className="profile-list-msg"> click for more ✨</p>
+      <p className="profile-list-msg"> click for more info✨</p>
       <Container className="profile-list-content">
         <Row>
           {list.map((profile, index) => (

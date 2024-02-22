@@ -8,7 +8,7 @@ export const fetchProfileDataBatch = (urls, setter, fieldName) => {
         return response.json();
       })
       .then(data => {
-        return data[fieldName];
+        return data[fieldName]; // only fetch the specific field value
       })
       .catch(error => {
         console.error("Error fetching batch data: ", error);

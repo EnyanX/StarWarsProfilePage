@@ -3,17 +3,16 @@ import "./ProfileCard.css";
 import { Col } from "react-bootstrap";
 import { fetchProfileData } from "./fetchProfileData";
 import { fetchProfileDataBatch } from "./fetchProfileDataBatch";
-import DetailCard from "./DetailCard";
 
+// ProfileCard contains a person's basic info
 export default function ProfileCard(props) {
   const [species, setSpecies] = useState("n/a");
-  const [films, setFilms] = useState();
-  const [vehicles, setVehicles] = useState();
-  const [homeworld, setHomeworld] = useState();
+  const [, setFilms] = useState();
+  const [, setVehicles] = useState();
 
   let info = {};
 
-  // fetch species, films, vehicle information
+  // fetch species information (films/vehicles info is fetched when ProfileCard is onclick)
   useEffect(() => {
     const fetchProfileDataAsync = async () => {
       try {
@@ -28,6 +27,8 @@ export default function ProfileCard(props) {
     fetchProfileDataAsync();
   }, [props.species]);
 
+  // fetch films and vehicles info when ProfileCard onclick
+  // info stored as key-valueArray pairs into 'info' object
   const handleClick = async () => {
     const fetchPromises = [];
 

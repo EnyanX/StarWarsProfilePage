@@ -8,7 +8,6 @@ import SearchBar from "./search/SearchBar";
 import Typing from "./animation/Typing";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import DetailCard from "./profile/DetailCard";
 
 function App() {
   const [people, setPeople] = useState([]);
@@ -18,6 +17,7 @@ function App() {
   const [displayDetail, setDisplayDetail] = useState(false);
   const [details, setDetails] = useState();
 
+  // fetch all people information, store to local
   useEffect(() => {
     let tmpPeople = [];
     const fetchData = (url) => {
@@ -83,6 +83,7 @@ function App() {
         )}
       </header>
 
+      {/* loading animation */}
       {isLoading ? (
         <>
           <Spinner />
@@ -94,6 +95,7 @@ function App() {
         <SearchBar onSearchSubmit={handleSearchSubmit} className="search" />
       )}
 
+      {/* search functionality */}
       {searchPerformed &&
         (searchResult.length > 0 ? (
           <ProfileList
@@ -113,12 +115,12 @@ function App() {
         />
       )}
 
-      {/* {displayDetail && <DetailCard className="detail-card" info={[]}></DetailCard>} */}
+      {/* display detail info of selected person */}
       {displayDetail && (
         <div className="detail-container">
           <div className="detail-card">
+            {/* details are stored as kv pairs in 'details' object */}
             {Object.entries(details).map(([key, values], index) => (
-              
               <div key={index}>
                 <h1 className="detail-key">{key.toUpperCase()}</h1>
                 {values.map((value, index) => (
